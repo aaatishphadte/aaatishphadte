@@ -1,5 +1,5 @@
 # 💫 About Me:
-👋 Hi , I'm Dattatray Phadte<br>🔭 Building Data🌳<br>🌱 I’m currently learning Gen-Ai , MCP's and Building AI Agents for Automation<br>📍From Goa Bharat<br>💡Have an idea Connect with me over LinkedIn<br>🎮 By Hobby
+👋 Hi , I'm Dattatray Phadte<br>🔭 Building Data🌳; Working on Python , Golang based projects<br>🌱 I’m currently learning Gen-Ai , MCP's and Building AI Agents for Automation<br>📍From Goa Bharat<br>💡Have an idea Connect with me over LinkedIn<br>🎮 @ Leisure 
 
 
 ## 🌐 Socials:
@@ -15,4 +15,8 @@
 ---
 [![](https://visitcount.itsvg.in/api?id=aaatishphadte&icon=2&color=7)](https://visitcount.itsvg.in)
 
+  ## 💰 You can help me by Donating
+  [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/aaatishphadte07) 
+
+  
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
