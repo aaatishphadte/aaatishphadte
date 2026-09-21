@@ -1,22 +1,61 @@
-# 💫 About Me:
-👋 Hi , I'm Dattatray Phadte<br>🔭 Building Data🌳; Working on Python , Golang based projects<br>🌱 I’m currently learning Gen-Ai , MCP's and Building AI Agents for Automation<br>📍From Goa Bharat<br>💡Have an idea Connect with me over LinkedIn<br>🎮 @ Leisure 
+## Building in public
 
+<div align="center">
 
-## 🌐 Socials:
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/aaaatish.dev) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/dattatray-fadte) [![X](https://img.shields.io/badge/X-black.svg?logo=X&logoColor=white)](https://x.com/dattatrayfadte) 
+# Dattatray Alias Atish Phadte
 
-# 💻 Tech Stack:
-![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=plastic&logo=csharp&logoColor=white) ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=plastic&logo=go&logoColor=white) ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=plastic&logo=graphql&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=plastic&logo=python&logoColor=ffdd54) ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=plastic&logo=c%2B%2B&logoColor=white) ![C](https://img.shields.io/badge/c-%2300599C.svg?style=plastic&logo=c&logoColor=white) ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=plastic&logo=markdown&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=plastic&logo=microsoftazure&logoColor=white) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=plastic&logo=vercel&logoColor=white) ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=plastic&logo=.net&logoColor=white) ![Apache Kafka](https://img.shields.io/badge/Apache%20Kafka-000?style=plastic&logo=apachekafka) ![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=plastic&logo=bun&logoColor=white) ![Context-API](https://img.shields.io/badge/Context--Api-000000?style=plastic&logo=react) ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=plastic&logo=django&logoColor=white) ![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=plastic&logo=jquery&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=plastic&logo=JSON%20web%20tokens) ![Next JS](https://img.shields.io/badge/Next-black?style=plastic&logo=next.js&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white) ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=plastic&logo=nodemon&logoColor=%BBDEAD) ![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=plastic&logo=opencv&logoColor=white) ![Three js](https://img.shields.io/badge/threejs-black?style=plastic&logo=three.js&logoColor=white) ![SvelteKit](https://img.shields.io/badge/sveltekit-%23ff3e00.svg?style=plastic&logo=svelte&logoColor=white) ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=plastic&logo=nginx&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=plastic&logo=mongodb&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=plastic&logo=mysql&logoColor=white) ![PocketBase](https://img.shields.io/badge/pocketbase-%23b8dbe4.svg?style=plastic&logo=Pocketbase&logoColor=black) ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=plastic&logo=microsoft%20sql%20server&logoColor=white) ![Adobe Acrobat Reader](https://img.shields.io/badge/Adobe%20Acrobat%20Reader-EC1C24.svg?style=plastic&logo=Adobe%20Acrobat%20Reader&logoColor=white) ![Blender](https://img.shields.io/badge/blender-%23F5792A.svg?style=plastic&logo=blender&logoColor=white) ![Adobe XD](https://img.shields.io/badge/Adobe%20XD-470137?style=plastic&logo=Adobe%20XD&logoColor=#FF61F6) ![Adobe Fonts](https://img.shields.io/badge/Adobe%20Fonts-000B1D.svg?style=plastic&logo=Adobe%20Fonts&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=plastic&logo=Keras&logoColor=white) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=plastic&logo=numpy&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=plastic&logo=pandas&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=plastic&logo=scikit-learn&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=plastic&logo=TensorFlow&logoColor=white) ![GitLab CI](https://img.shields.io/badge/gitlab%20CI-%23181717.svg?style=plastic&logo=gitlab&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=plastic&logo=githubactions&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=plastic&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white) ![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=plastic&logo=gitlab&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=plastic&logo=docker&logoColor=white) ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=plastic&logo=jira&logoColor=white) ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=plastic&logo=kubernetes&logoColor=white) ![Grafana](https://img.shields.io/badge/grafana-%23F46800.svg?style=plastic&logo=grafana&logoColor=white) ![FFmpeg](https://shields.io/badge/FFmpeg-%23171717.svg?logo=ffmpeg&style=plastic&labelColor=171717&logoColor=5cb85c) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=plastic&logo=postman&logoColor=white) ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=plastic&logo=Prometheus&logoColor=white) ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=plastic&logo=swagger&logoColor=white)
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=aaatishphadte&theme=one_dark_pro&hide_border=false&include_all_commits=false&count_private=false)<br/>
-![](https://nirzak-streak-stats.vercel.app/?user=aaatishphadte&theme=one_dark_pro&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=aaatishphadte&theme=one_dark_pro&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+> Technical founder
 
----
-[![](https://visitcount.itsvg.in/api?id=aaatishphadte&icon=2&color=7)](https://visitcount.itsvg.in)
+<p align="center">
+  <img src="https://www.gitskins.com/api/section/hero?username=aaatishphadte&theme=satan&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F138298474%3Fu%3D884b8fb95fbf9949cbdff03c0e4fc0f8965205a0%26v%3D4" alt="aaatishphadte hero visual" />
+</p>
 
-  ## 💰 You can help me by Donating
-  [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/aaatishphadte07) 
+</div>
 
-  
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+## The point of view
+
+> 👋 Hi , I'm Dattatray Phadte
+🔭 Building Data🌳
+🌱 I’m currently learning Gen-Ai , MCP's and Building AI Agents for Automation
+📍From Goa Bharat
+🎮 
+
+- 📍 Based in **Goa, Bharat**
+- 🏢 Working at **Data🌳 Studios**
+- 🌐 [Website](https://vitaely.me/aaatishphadte07)
+- 👥 **2** followers · **4** following
+
+*Small, useful work over vague claims.*
+
+## What I’m shipping
+
+<p align="center">
+  <img src="https://www.gitskins.com/api/section/highlights?username=aaatishphadte&theme=satan&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F138298474%3Fu%3D884b8fb95fbf9949cbdff03c0e4fc0f8965205a0%26v%3D4" alt="aaatishphadte highlights visual" />
+</p>
+
+<p><b>Dattatray Alias Atish Phadte</b> is shipping 16 public projects with 0 stars of proof.</p>
+
+## Products and proof
+
+<table>
+<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/ai-pdf-chatbot-langchain">ai-pdf-chatbot-langchain</a></b></td><td>AI PDF chatbot agent built with LangChain &amp; LangGraph <br/><sub>TypeScript · 0 stars</sub></td></tr>
+<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/ecommerce-crawler">ecommerce-crawler</a></b></td><td>Crawler for Discovering Product URLs on E-commerce Websites<br/><sub>open source · 0 stars</sub></td></tr>
+<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/Ecommerce-Product-Scrapper">Ecommerce-Product-Scrapper</a></b></td><td>Crawls Shopping sites and Scrapes Product Urls <br/><sub>TypeScript · 0 stars</sub></td></tr>
+<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/Gen-AI-RPG-Game">Gen-AI-RPG-Game</a></b></td><td>A text-based adventure-story game you direct (and star in) while the AI brings it to life.<br/><sub>Jupyter Notebook · 0 stars</sub></td></tr>
+</table>
+
+## Momentum
+
+<table>
+<tr><td align="center"><b>16</b><br/><sub>repos</sub></td><td align="center"><b>0</b><br/><sub>stars</sub></td><td align="center"><b>303</b><br/><sub>contributions</sub></td></tr>
+</table>
+
+## Start a conversation
+
+<p align="center">
+  <img src="https://www.gitskins.com/api/section/social?username=aaatishphadte&theme=satan&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F138298474%3Fu%3D884b8fb95fbf9949cbdff03c0e4fc0f8965205a0%26v%3D4" alt="aaatishphadte social visual" />
+</p>
+
+<a href="https://github.com/aaatishphadte">GitHub</a> · <a href="https://vitaely.me/aaatishphadte07">Website</a>
+
+<p align="center"><sub>Dattatray Alias Atish Phadte · Founder profile generated with <a href="https://www.gitskins.com/readme-generator">GitSkins</a></sub></p>
