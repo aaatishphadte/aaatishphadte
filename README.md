@@ -22,7 +22,7 @@
 
 - 📍 Based in **Goa, Bharat**
 - 🏢 Working at **Data🌳 Studios**
-- 🌐 [Website](https://vitaely.me/aaatishphadte07)
+- 🌐 [Website]([https://vitaely.me/aaatishphadte07](https://booleanchitra.dattatrayfadte.workers.dev/))
 - 👥 **2** followers · **4** following
 
 *Small, useful work over vague claims.*
