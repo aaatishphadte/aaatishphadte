@@ -1,61 +1,76 @@
-## Building in public
+<!--
+  Profile README for github.com/aaatishphadte
+  Every graphic here is drawn by scripts/build.py (edit CONFIG at the top, then run it).
+  .github/workflows/profile.yml refreshes the stats card and the snake every day.
+-->
 
 <div align="center">
 
-# Dattatray Alias Atish Phadte
+<a href="https://github.com/aaatishphadte"><img src="./assets/hero.svg" width="100%" alt="Dattatray 'Atish' Phadte — technical founder of DataTree Studios and BooleanChitra, Goa, Bharat"/></a>
 
-> Technical founder
+<a href="https://booleanchitra.dattatrayfadte.workers.dev/"><img src="./assets/btn-booleanchitra.svg" height="46" alt="BooleanChitra website"/></a>
+<a href="https://vitaely.me/aaatishphadte07"><img src="./assets/btn-portfolio.svg" height="46" alt="Portfolio"/></a>
+<a href="https://github.com/aaatishphadte?tab=repositories"><img src="./assets/btn-repos.svg" height="46" alt="All repositories"/></a>
 
-<p align="center">
-  <img src="https://www.gitskins.com/api/section/hero?username=aaatishphadte&theme=satan&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F138298474%3Fu%3D884b8fb95fbf9949cbdff03c0e4fc0f8965205a0%26v%3D4" alt="aaatishphadte hero visual" />
-</p>
+<br/>
+
+I'm a technical founder from <b>Goa, Bharat</b>, building two companies:<br/>
+<b>DataTree Studios</b>, a game studio, and <b>BooleanChitra</b>, an AI software agency.<br/>
+Right now I'm deep in <b>Gen-AI</b>, <b>MCP</b> and <b>AI agents that automate real work</b>, and I'm building it all in public.
 
 </div>
 
-## The point of view
+<br/>
 
-> 👋 Hi , I'm Dattatray Phadte
-🔭 Building Data🌳
-🌱 I’m currently learning Gen-Ai , MCP's and Building AI Agents for Automation
-📍From Goa Bharat
-🎮 
-
-- 📍 Based in **Goa, Bharat**
-- 🏢 Working at **Data🌳 Studios**
-- 🌐 [Website]([https://vitaely.me/aaatishphadte07](https://booleanchitra.dattatrayfadte.workers.dev/))
-- 👥 **2** followers · **4** following
-
-*Small, useful work over vague claims.*
-
-## What I’m shipping
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/main/assets/head-ventures-dark.svg">
+  <img src="./assets/head-ventures-light.svg" width="100%" alt="01 — Ventures">
+</picture>
 
 <p align="center">
-  <img src="https://www.gitskins.com/api/section/highlights?username=aaatishphadte&theme=satan&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F138298474%3Fu%3D884b8fb95fbf9949cbdff03c0e4fc0f8965205a0%26v%3D4" alt="aaatishphadte highlights visual" />
+  <img src="./assets/venture-datatree.svg" width="49%" alt="DataTree Studios — indie game studio in Goa. Founder."/>
+  <a href="https://booleanchitra.dattatrayfadte.workers.dev/"><img src="./assets/venture-booleanchitra.svg" width="49%" alt="BooleanChitra — AI software agency: AI agents, automation, MCP, LLM apps. Founder."/></a>
 </p>
 
-<p><b>Dattatray Alias Atish Phadte</b> is shipping 16 public projects with 0 stars of proof.</p>
+<br/>
 
-## Products and proof
-
-<table>
-<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/ai-pdf-chatbot-langchain">ai-pdf-chatbot-langchain</a></b></td><td>AI PDF chatbot agent built with LangChain &amp; LangGraph <br/><sub>TypeScript · 0 stars</sub></td></tr>
-<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/ecommerce-crawler">ecommerce-crawler</a></b></td><td>Crawler for Discovering Product URLs on E-commerce Websites<br/><sub>open source · 0 stars</sub></td></tr>
-<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/Ecommerce-Product-Scrapper">Ecommerce-Product-Scrapper</a></b></td><td>Crawls Shopping sites and Scrapes Product Urls <br/><sub>TypeScript · 0 stars</sub></td></tr>
-<tr><td width="32%"><b><a href="https://github.com/aaatishphadte/Gen-AI-RPG-Game">Gen-AI-RPG-Game</a></b></td><td>A text-based adventure-story game you direct (and star in) while the AI brings it to life.<br/><sub>Jupyter Notebook · 0 stars</sub></td></tr>
-</table>
-
-## Momentum
-
-<table>
-<tr><td align="center"><b>16</b><br/><sub>repos</sub></td><td align="center"><b>0</b><br/><sub>stars</sub></td><td align="center"><b>303</b><br/><sub>contributions</sub></td></tr>
-</table>
-
-## Start a conversation
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/main/assets/head-work-dark.svg">
+  <img src="./assets/head-work-light.svg" width="100%" alt="02 — Selected work">
+</picture>
 
 <p align="center">
-  <img src="https://www.gitskins.com/api/section/social?username=aaatishphadte&theme=satan&avatar=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F138298474%3Fu%3D884b8fb95fbf9949cbdff03c0e4fc0f8965205a0%26v%3D4" alt="aaatishphadte social visual" />
+  <a href="https://github.com/aaatishphadte/Gen-AI-RPG-Game"><img src="./assets/project-rpg.svg" width="49%" alt="Gen-AI-RPG-Game — a text adventure you direct and star in, while the AI brings the story to life."/></a>
+  <a href="https://github.com/aaatishphadte/ai-pdf-chatbot-langchain"><img src="./assets/project-pdf.svg" width="49%" alt="ai-pdf-chatbot-langchain — AI PDF chatbot agent built with LangChain and LangGraph."/></a>
+  <a href="https://github.com/aaatishphadte/Ecommerce-Product-Scrapper"><img src="./assets/project-scraper.svg" width="49%" alt="Ecommerce-Product-Scrapper — crawls shopping sites and scrapes product URLs."/></a>
+  <a href="https://github.com/aaatishphadte/ecommerce-crawler"><img src="./assets/project-crawler.svg" width="49%" alt="ecommerce-crawler — crawler for discovering product URLs on e-commerce websites."/></a>
 </p>
 
-<a href="https://github.com/aaatishphadte">GitHub</a> · <a href="https://vitaely.me/aaatishphadte07">Website</a>
+<br/>
 
-<p align="center"><sub>Dattatray Alias Atish Phadte · Founder profile generated with <a href="https://www.gitskins.com/readme-generator">GitSkins</a></sub></p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/main/assets/head-toolkit-dark.svg">
+  <img src="./assets/head-toolkit-light.svg" width="100%" alt="03 — Toolkit">
+</picture>
+
+<img src="./assets/toolkit.svg" width="100%" alt="Toolkit — AI/agents: LangChain, LangGraph, MCP, RAG, LLM APIs, prompt design. Languages: Python, TypeScript, Jupyter. Ship: Node.js, Cloudflare Workers, web scraping, Git & GitHub. Play: game design, interactive fiction, AI-driven narrative."/>
+
+<br/><br/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/main/assets/head-momentum-dark.svg">
+  <img src="./assets/head-momentum-light.svg" width="100%" alt="04 — Momentum">
+</picture>
+
+<img src="./assets/stats.svg" width="100%" alt="Live GitHub stats: contributions, streaks, public repositories and top languages"/>
+
+<br/><br/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/output/snake-dark.svg">
+  <img src="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/output/snake-light.svg" width="100%" alt="A snake eating my GitHub contribution graph">
+</picture>
+
+<br/><br/>
+
+<img src="./assets/footer.svg" width="100%" alt="Small, useful work over vague claims. DataTree Studios × BooleanChitra, made in Goa, Bharat."/>
