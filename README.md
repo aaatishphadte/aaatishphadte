@@ -1,7 +1,8 @@
 <!--
   Profile README for github.com/aaatishphadte
   Every graphic here is drawn by scripts/build.py (edit CONFIG at the top, then run it).
-  .github/workflows/profile.yml refreshes the stats card and the snake every day.
+  No Actions? Run `python scripts/build.py --live` on your computer (no token needed) and push /assets.
+  .github/workflows/profile.yml does the same thing daily once Actions is available on the account.
 -->
 
 <div align="center">
@@ -64,12 +65,9 @@ Right now I'm deep in <b>Gen-AI</b>, <b>MCP</b> and <b>AI agents that automate r
 
 <img src="./assets/stats.svg" width="100%" alt="Live GitHub stats: contributions, streaks, public repositories and top languages"/>
 
-<br/><br/>
+<br/>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/output/snake-dark.svg">
-  <img src="https://raw.githubusercontent.com/aaatishphadte/aaatishphadte/output/snake-light.svg" width="100%" alt="A snake eating my GitHub contribution graph">
-</picture>
+<img src="./assets/contrib.svg" width="100%" alt="My GitHub contribution graph for the last year, with a snake game eating the active days"/>
 
 <br/><br/>
 

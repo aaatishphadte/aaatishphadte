@@ -24,6 +24,7 @@ import os
 import random
 import re
 import sys
+import urllib.error
 import urllib.request
 from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
@@ -120,6 +121,7 @@ CONFIG = {
         "repos": 16,
         "languages": [("TypeScript", "#3178C6", 1), ("Jupyter Notebook", "#DA5B0B", 1), ("Python", "#3572A5", 1)],
         "languages_basis": "by repo count",
+        "calendar": None,  # filled by --live; drives assets/contrib.svg
     },
     "footer_line": "Small, useful work over vague claims.",
     "footer_sub": "DATATREE STUDIOS  ×  BOOLEANCHITRA  ·  MADE IN GOA, BHARAT",
@@ -280,7 +282,7 @@ class Svg:
 def write(name: str, svg: Svg):
     out = ASSETS / name
     out.write_text(svg.render(), encoding="utf-8")
-    print(f"  ✓ {name:<34} {out.stat().st_size/1024:6.1f} KB")
+    print(f"  + {name:<34} {out.stat().st_size/1024:6.1f} KB")
 
 
 def cells_path(cells, p, ox=0.0, oy=0.0) -> str:
@@ -858,16 +860,71 @@ query($login: String!) {
       nodes { languages(first: 10, orderBy: {field: SIZE, direction: DESC}) { edges { size node { name color } } } }
     }
     contributionsCollection {
-      contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } }
+      contributionCalendar {
+        totalContributions
+        weeks { contributionDays { date contributionCount contributionLevel } }
+      }
     }
   }
 }"""
 
+GQL_LEVEL = {"NONE": 0, "FIRST_QUARTILE": 1, "SECOND_QUARTILE": 2, "THIRD_QUARTILE": 3, "FOURTH_QUARTILE": 4}
 
-def fetch_live(username: str) -> dict:
-    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
-    if not token:
-        sys.exit("--live needs GITHUB_TOKEN")
+# GitHub linguist colours for the REST path (GraphQL returns them itself)
+LANG_COLORS = {
+    "TypeScript": "#3178C6", "JavaScript": "#F1E05A", "Python": "#3572A5", "Jupyter Notebook": "#DA5B0B",
+    "HTML": "#E34C26", "CSS": "#663399", "SCSS": "#C6538C", "Shell": "#89E051", "PowerShell": "#012456",
+    "Batchfile": "#C1F12E", "Dockerfile": "#384D54", "C#": "#178600", "C++": "#F34B7D", "C": "#555555",
+    "Java": "#B07219", "Kotlin": "#A97BFF", "Go": "#00ADD8", "Rust": "#DEA584", "Swift": "#F05138",
+    "Dart": "#00B4AB", "PHP": "#4F5D95", "Ruby": "#701516", "Lua": "#000080", "GDScript": "#355570",
+    "ShaderLab": "#222C37", "HLSL": "#AACE60", "GLSL": "#5686A5", "Vue": "#41B883", "Svelte": "#FF3E00",
+    "Astro": "#FF5A03", "MDX": "#FCB32C", "Solidity": "#AA6746",
+}
+
+
+def http_get(url: str, token: str | None = None) -> str:
+    headers = {"User-Agent": "profile-art (github.com/aaatishphadte)", "Accept": "application/vnd.github+json"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=30) as r:
+            return r.read().decode("utf-8")
+    except urllib.error.HTTPError as e:
+        if e.code in (403, 429):
+            sys.exit(f"GitHub rate limit hit on {url}. Wait an hour, or set GITHUB_TOKEN to any personal token.")
+        raise
+
+
+def summarize(calendar, total, repos, langs, basis) -> dict:
+    """calendar = [[YYYY-MM-DD, count|None, level 0-4], ...] sorted by date"""
+    active = [(c if c is not None else (1 if lvl else 0)) > 0 for _, c, lvl in calendar]
+    longest = run = 0
+    for a in active:
+        run = run + 1 if a else 0
+        longest = max(longest, run)
+    seq = active[:]
+    today = datetime.now(timezone.utc).date().isoformat()
+    while seq and calendar[len(seq) - 1][0] > today:  # ignore future cells in the current week
+        seq.pop()
+    if seq and not seq[-1]:  # nothing yet today, so the streak isn't broken
+        seq.pop()
+    cur = 0
+    for a in reversed(seq):
+        if not a:
+            break
+        cur += 1
+    return {
+        "contributions": total,
+        "current_streak": cur,
+        "longest_streak": longest,
+        "repos": repos,
+        "languages": langs,
+        "languages_basis": basis,
+        "calendar": calendar,
+    }
+
+
+def fetch_graphql(username: str, token: str) -> dict:
     req = urllib.request.Request(
         "https://api.github.com/graphql",
         data=json.dumps({"query": GQL, "variables": {"login": username}}).encode(),
@@ -876,36 +933,80 @@ def fetch_live(username: str) -> dict:
     with urllib.request.urlopen(req, timeout=30) as r:
         data = json.load(r)
     if "errors" in data:
-        sys.exit(f"GraphQL error: {data['errors']}")
+        raise RuntimeError(f"GraphQL error: {data['errors']}")
     u = data["data"]["user"]
     cal = u["contributionsCollection"]["contributionCalendar"]
-    days = sorted((d["date"], d["contributionCount"]) for w in cal["weeks"] for d in w["contributionDays"])
-    longest = run = 0
-    for _, c in days:
-        run = run + 1 if c > 0 else 0
-        longest = max(longest, run)
-    cur = 0
-    seq = [c for _, c in days]
-    if seq and seq[-1] == 0:  # today not committed yet → don't break the streak
-        seq = seq[:-1]
-    for c in reversed(seq):
-        if c == 0:
-            break
-        cur += 1
+    calendar = sorted(
+        [d["date"], d["contributionCount"], GQL_LEVEL.get(d.get("contributionLevel"), 0)]
+        for w in cal["weeks"] for d in w["contributionDays"]
+    )
     langs = defaultdict(lambda: [0, "#888888"])
     for node in u["own"]["nodes"]:
         for e in node["languages"]["edges"]:
             langs[e["node"]["name"]][0] += e["size"]
             langs[e["node"]["name"]][1] = e["node"]["color"] or "#888888"
-    top = sorted(langs.items(), key=lambda kv: -kv[1][0])
-    return {
-        "contributions": cal["totalContributions"],
-        "current_streak": cur,
-        "longest_streak": longest,
-        "repos": u["all"]["totalCount"],
-        "languages": [(k, v[1], v[0]) for k, v in top],
-        "languages_basis": "by bytes of code",
-    }
+    top = [(k, v[1], v[0]) for k, v in sorted(langs.items(), key=lambda kv: -kv[1][0])]
+    return summarize(calendar, cal["totalContributions"], u["all"]["totalCount"], top, "by bytes of code")
+
+
+def _attrs(tag_inner: str) -> dict:
+    return dict(re.findall(r'([\w:-]+)="([^"]*)"', tag_inner))
+
+
+def parse_contrib_html(html: str):
+    """Parse github.com/users/<name>/contributions (public, no token needed)."""
+    tips = {}
+    for m in re.finditer(r"<tool-tip\b([^>]*)>(.*?)</tool-tip>", html, re.S):
+        a = _attrs(m.group(1))
+        if "for" not in a:
+            continue
+        txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", m.group(2))).strip()
+        mm = re.match(r"([\d,]+)\s+contributions?\b", txt)
+        tips[a["for"]] = int(mm.group(1).replace(",", "")) if mm else (0 if txt.lower().startswith("no contribution") else None)
+    days = {}
+    for m in re.finditer(r"<(?:td|rect)\b([^>]*)>", html):
+        a = _attrs(m.group(1))
+        d = a.get("data-date")
+        if not d:
+            continue
+        lvl = int(a.get("data-level") or 0)
+        cnt = tips.get(a.get("id", ""))
+        if cnt is None and a.get("data-count", "").isdigit():  # older markup
+            cnt = int(a["data-count"])
+        days[d] = [d, cnt, lvl]
+    calendar = sorted(days.values())
+    flat = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
+    m = re.search(r"([\d,]+) contributions? in the last year", flat)
+    total = int(m.group(1).replace(",", "")) if m else sum(c or 0 for _, c, _ in calendar)
+    return calendar, total
+
+
+def fetch_public(username: str, token: str | None = None) -> dict:
+    html = http_get(f"https://github.com/users/{username}/contributions")
+    calendar, total = parse_contrib_html(html)
+    if len(calendar) < 300:
+        sys.exit("Couldn't read the contribution calendar (GitHub may have changed its page). "
+                 "Set GITHUB_TOKEN to a personal token to use the API instead.")
+    user = json.loads(http_get(f"https://api.github.com/users/{username}", token))
+    repos = json.loads(http_get(f"https://api.github.com/users/{username}/repos?per_page=100&type=owner", token))
+    langs = defaultdict(int)
+    for r in repos:
+        if r.get("fork"):
+            continue
+        for name, size in json.loads(http_get(r["languages_url"], token)).items():
+            langs[name] += size
+    top = [(k, LANG_COLORS.get(k, "#8A8DB0"), v) for k, v in sorted(langs.items(), key=lambda kv: -kv[1])]
+    return summarize(calendar, total, user.get("public_repos", len(repos)), top, "by bytes of code")
+
+
+def fetch_live(username: str) -> dict:
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if token:
+        try:
+            return fetch_graphql(username, token)
+        except Exception as e:  # bad token, no network to GraphQL, etc.
+            print(f"  ! GraphQL failed ({e}); falling back to public pages")
+    return fetch_public(username, token)
 
 
 def build_stats(st: dict):
@@ -915,7 +1016,7 @@ def build_stats(st: dict):
     digest = hashlib.sha1(payload.encode() + Path(__file__).read_bytes()).hexdigest()[:12]  # data + layout
     out = ASSETS / "stats.svg"
     if out.exists() and f'data-hash="{digest}"' in out.read_text(encoding="utf-8"):
-        print("  · stats.svg                          unchanged")
+        print("  = stats.svg (unchanged)")
         return
 
     def fmt(v):
@@ -931,7 +1032,7 @@ def build_stats(st: dict):
     s.defs.append('<pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="1.4" height="1.4" fill="#fff" opacity=".06"/></pattern>')
     s.add(f'<g clip-path="url(#cf)"><rect width="{W}" height="{H}" fill="{C["ink2"]}"/><rect width="{W}" height="{H}" fill="url(#dots)"/>')
     s.add(f'<rect class="p" x="32" y="30" width="7" height="7" fill="{C["teal"]}"/>')
-    s.add(s.text(48, 38, "LIVE FROM GITHUB", "jb7", 12.5, C["teal"], ls=2))
+    s.add(s.text(48, 38, "SYNCED FROM GITHUB", "jb7", 12.5, C["teal"], ls=2))
     s.add(s.text(W - 32, 37.5, f"UPDATED {stamp.upper()}", "jb4", 12, C["dim"], anchor="end", ls=1.5))
 
     tiles = [
@@ -981,6 +1082,128 @@ def build_stats(st: dict):
 
 
 # ════════════════════════════════════════════════════════════════════
+#  CONTRIBUTION GRID + SNAKE (replaces the third-party snake Action)
+# ════════════════════════════════════════════════════════════════════
+# level 0 = empty cell; 1-4 = one-hue saffron ramp, validated on the panel colour
+CONTRIB_RAMP = ["#1A1D3A", "#77491F", "#AA6420", "#E0801F", "#FFB04D"]
+
+
+def build_contrib(st: dict):
+    cal = st.get("calendar")
+    payload = json.dumps(cal, default=str) + str(st.get("contributions"))
+    digest = hashlib.sha1(payload.encode() + Path(__file__).read_bytes()).hexdigest()[:12]
+    out = ASSETS / "contrib.svg"
+    if out.exists() and f'data-hash="{digest}"' in out.read_text(encoding="utf-8"):
+        print("  = contrib.svg (unchanged)")
+        return
+
+    # lay the year out on a Sunday-first week grid, like GitHub does
+    if cal:
+        dates = [date.fromisoformat(d) for d, _, _ in cal]
+        start = dates[0] - timedelta(days=(dates[0].weekday() + 1) % 7)
+    else:
+        start = datetime.now(timezone.utc).date() - timedelta(days=364)
+        start -= timedelta(days=(start.weekday() + 1) % 7)
+        dates = [start + timedelta(days=i) for i in range(371)]
+        cal = [[d.isoformat(), 0, 0] for d in dates]
+    weeks = (dates[-1] - start).days // 7 + 1
+
+    W, X0, Y0 = 1000, 74, 84
+    pitch = min(17.0, (W - 32 - X0) / weeks)
+    cell = round(pitch * 0.8, 2)
+    H = int(Y0 + 7 * pitch + 66)
+    step, dur = 0.05, weeks * 7 * 0.05
+
+    def pos(d: date):
+        col = (d - start).days // 7
+        row = (d.weekday() + 1) % 7
+        return col, row, X0 + col * pitch, Y0 + row * pitch
+
+    total = st.get("contributions") or 0
+    has_data = any(lvl for _, _, lvl in cal) or any(c for _, c, _ in cal if c)
+    s = Svg(W, H, f"GitHub contribution graph: {total:,} contributions in the last year, with a snake game eating the active days.")
+    s.meta = f'<metadata data-hash="{digest}"/>'
+    s.defs.append(f'<clipPath id="cf"><rect width="{W}" height="{H}" rx="18"/></clipPath>')
+    s.defs.append('<pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="1.4" height="1.4" fill="#fff" opacity=".06"/></pattern>')
+    s.css.append("@keyframes p{0%,100%{opacity:.35}50%{opacity:1}}.p{animation:p 2.4s ease-in-out infinite}"
+                 "@keyframes bl{0%,49%{opacity:1}50%,100%{opacity:0}}.bl{animation:bl 1.1s steps(1) infinite}")
+    s.add(f'<g clip-path="url(#cf)"><rect width="{W}" height="{H}" fill="{C["ink2"]}"/><rect width="{W}" height="{H}" fill="url(#dots)"/>')
+
+    # header: kicker left, arcade score right
+    s.add(f'<rect class="p" x="32" y="30" width="7" height="7" fill="{C["saffron"]}"/>')
+    s.add(s.text(48, 38, "CONTRIBUTION GRID", "jb7", 12.5, C["saffron"], ls=2))
+    s.add(s.tspan_text(W - 32, 39, [("SCORE ", "px", 14, C["muted"], 0), (f"{total:04d}", "px", 14, C["cream"], 0)],
+                       anchor="end", extra='letter-spacing="1.5"'))
+
+    # month + weekday labels
+    last_col = -9
+    for d in dates:
+        if d.day <= 7 and (d.weekday() + 1) % 7 == 0 or (d == dates[0] and d.day <= 21):
+            col = (d - start).days // 7
+            if col - last_col >= 3 and col < weeks - 1:
+                s.add(s.text(X0 + col * pitch, Y0 - 12, d.strftime("%b"), "jb4", 12, C["dim"]))
+                last_col = col
+    for row, lab in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
+        s.add(s.text(32, Y0 + row * pitch + cell * 0.82, lab, "jb4", 11.5, C["dim"]))
+
+    # empty grid, then the coloured days on top (each one gets eaten when the snake's head arrives)
+    base, food = [], []
+    for d, cnt, lvl in cal:
+        col, row, x, y = pos(date.fromisoformat(d))
+        base.append(f'<rect x="{n(x)}" y="{n(y)}" width="{cell}" height="{cell}" rx="3" fill="{CONTRIB_RAMP[0]}"/>')
+        if lvl:
+            idx = col * 7 + (row if col % 2 == 0 else 6 - row)
+            f = max(idx * step / dur, 0.0005)
+            food.append(
+                f'<rect x="{n(x)}" y="{n(y)}" width="{cell}" height="{cell}" rx="3" fill="{CONTRIB_RAMP[min(lvl, 4)]}">'
+                f'<animate attributeName="opacity" dur="{n(dur)}s" repeatCount="indefinite" calcMode="discrete" '
+                f'keyTimes="0;{f:.5f};.996" values="1;0;1"/></rect>'
+            )
+    s.add("".join(base) + "".join(food))
+
+    # the snake: walks a serpentine path down one week, up the next; body segments trail one cell apart
+    pts = []
+    for col in range(weeks):
+        rows = range(7) if col % 2 == 0 else range(6, -1, -1)
+        for row in rows:
+            pts.append((X0 + col * pitch + cell / 2, Y0 + row * pitch + cell / 2))
+    s.defs.append(f'<path id="sp" d="M{" L".join(f"{n(x)} {n(y)}" for x, y in pts)}"/>')
+    segs = []
+    for k in range(6, -1, -1):
+        sz = cell + 1 if k == 0 else max(cell - k * 1.1, cell * 0.45)
+        op = 1 if k == 0 else 0.9 - k * 0.1
+        eyes = ""
+        if k == 0:
+            eyes = (f'<rect x="{n(sz / 2 - 4.5)}" y="{n(-sz / 2 + 2.5)}" width="2.6" height="2.6" fill="{C["ink"]}"/>'
+                    f'<rect x="{n(sz / 2 - 4.5)}" y="{n(sz / 2 - 5.1)}" width="2.6" height="2.6" fill="{C["ink"]}"/>')
+        segs.append(
+            f'<g opacity="{n(op)}"><rect x="{n(-sz / 2)}" y="{n(-sz / 2)}" width="{n(sz)}" height="{n(sz)}" rx="3" fill="{C["teal"]}"/>{eyes}'
+            f'<animateMotion dur="{n(dur)}s" repeatCount="indefinite" rotate="auto" calcMode="paced" begin="{n(k * step - dur)}s">'
+            f'<mpath href="#sp"/></animateMotion></g>'
+        )
+    s.add("".join(segs))
+
+    # footer: summary left, legend right
+    fy = H - 26
+    if has_data:
+        s.add(s.text(32, fy, f"{total:,} contributions in the last year", "sg5", 15.5, C["muted"]))
+    else:
+        s.add(s.text(32, fy, "Your graph fills in the first time build.py runs with --live", "sg5", 15.5, C["muted"]))
+    lw = Font.get("jb4").width("More", 12)
+    x = W - 32 - lw
+    s.add(s.text(x, fy, "More", "jb4", 12, C["dim"]))
+    x -= 8
+    for col in reversed(CONTRIB_RAMP):
+        x -= 13
+        s.add(f'<rect x="{n(x)}" y="{fy - 11}" width="11" height="11" rx="2.5" fill="{col}"/>')
+        x -= 3
+    s.add(s.text(x - 6, fy, "Less", "jb4", 12, C["dim"], anchor="end"))
+    s.add("</g>")
+    s.add(f'<rect x=".75" y=".75" width="{W - 1.5}" height="{H - 1.5}" rx="17.25" stroke="{C["line"]}" stroke-width="1.5"/>')
+    write("contrib.svg", s)
+
+
+# ════════════════════════════════════════════════════════════════════
 #  FOOTER
 # ════════════════════════════════════════════════════════════════════
 def build_footer():
@@ -1027,7 +1250,7 @@ def main():
     ASSETS.mkdir(exist_ok=True)
     live = "--live" in sys.argv
     only_stats = "--stats-only" in sys.argv
-    print(f"Building profile art → {ASSETS.relative_to(ROOT)}/")
+    print(f"Building profile art -> {ASSETS.relative_to(ROOT)}/" + ("  (live data)" if live else "  (seed data)"))
     stats = fetch_live(CONFIG["username"]) if live else CONFIG["seed_stats"]
     if not only_stats:
         build_hero()
@@ -1039,6 +1262,7 @@ def main():
         build_toolkit()
         build_footer()
     build_stats(stats)
+    build_contrib(stats)
     print("done.")
 
 
