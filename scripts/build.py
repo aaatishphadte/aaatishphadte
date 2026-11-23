@@ -281,7 +281,9 @@ class Svg:
 
 def write(name: str, svg: Svg):
     out = ASSETS / name
-    out.write_text(svg.render(), encoding="utf-8")
+    # always LF, so a Windows runner doesn't rewrite every file with CRLF and commit them daily
+    with open(out, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(svg.render())
     print(f"  + {name:<34} {out.stat().st_size/1024:6.1f} KB")
 
 
